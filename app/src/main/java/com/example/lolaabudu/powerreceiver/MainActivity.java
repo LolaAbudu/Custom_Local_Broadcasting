@@ -22,18 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //BELOW IS FOR SYSTEM BROADCAST(FOR CUSTOM RECEIVER CLASS)
-        //Intent filters specify the types of intents a component can receive.
-        IntentFilter filter = new IntentFilter();
-
-        //When the system receives an Intent as a broadcast, it searches the broadcast receivers based on the action value specified in the IntentFilter object.
-        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+        //BELOW IS FOR SYSTEM BROADCAST(FOR CUSTOM RECEIVER CLASS; FOR POWER CONNECTED/DISCONNECTED)
+        IntentFilter filter = new IntentFilter();    //Intent filters specify the types of intents a component can receive.
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);   //When the system receives an Intent as a broadcast, it searches the broadcast receivers based on the action value specified in the IntentFilter object.
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
-
-        // Register the receiver using the MainActivity context.
-        //Your receiver is active and able to receive broadcasts as long as your MainActivity is running.
-        this.registerReceiver(mReceiver, filter);
-
+        this.registerReceiver(mReceiver, filter);    // Register the receiver using the MainActivity context.
+                                                     //Your receiver is active and able to receive broadcasts as long as your MainActivity is running.
 
         //BELOW IS FOR LOCAL BROADCAST
         //get an instance of LocalBroadcastManager and register your receiver with the custom Intent action, always register inside onCreate and unregister inside onDestroy
@@ -45,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter headsetFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         headsetFilter.addAction(Intent.ACTION_HEADSET_PLUG);
         this.registerReceiver(mReceiver2, headsetFilter);
-
     }
 
     //unregister the receiever in onDestroy to save system resources and avoid leaks
@@ -53,26 +46,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         //BELOW IS FOR SYSTEM BROADCAST (FOR CUSTOM RECEIVER CLASS)
         this.unregisterReceiver(mReceiver);
-        super.onDestroy();
 
         //BELOW IS FOR LOCAL BROADCAST
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
 
-
         //BELOW IS FOR SYSTEM BROADCAST (FOR HEADSET RECEIVER)
-        unregisterReceiver(mReceiver);
+        unregisterReceiver(mReceiver2);
 
+        super.onDestroy();
     }
 
-    //BELOW IS FOR THE LOCAL
+    //BELOW IS FOR SENDING A LOCAL BROADCAST
     //created for the button's onclick method to send broadcast in my own app(aka Local Broadcast)
     public void sendCustomBroadcast(View view) {
-        //passed the custom string created above as the argument
-        Intent customBroadcastIntent = new Intent(ACTION_CUSTOM_BROADCAST);
-
-        //below sends the broadcast locally within my app only
-        LocalBroadcastManager.getInstance(this).sendBroadcast(customBroadcastIntent);
-
+        Intent customBroadcastIntent = new Intent(ACTION_CUSTOM_BROADCAST);   //passed the custom string created above as the argument
+        LocalBroadcastManager.getInstance(this).sendBroadcast(customBroadcastIntent);      //below sends the broadcast locally within my app only
     }
 }
 

@@ -17,15 +17,16 @@
             </intent-filter>
         </activity>
 
-        <!-- receiver below is how you would create it statically in the Android Manifest, but its not recommended because API 26 and above cannot receive this way -->
+        <!-- receiver below is how you would create it statically in the Android Manifest, but its not recommended because API 26 and above cannot receive custom receivers this way -->
+
         <!--<receiver-->
             <!--android:name=".CustomReceiver"-->
             <!--android:enabled="true"-->
             <!--android:exported="true"></receiver>-->
-        <receiver
-            android:name=".HeadsetReceiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
+        <!--<receiver-->
+            <!--android:name=".HeadsetReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true"></receiver>-->
     </application>
 
 </manifest>

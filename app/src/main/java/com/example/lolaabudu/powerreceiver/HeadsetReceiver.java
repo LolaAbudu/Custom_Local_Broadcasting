@@ -24,13 +24,6 @@ public class HeadsetReceiver extends BroadcastReceiver {
                         toastMessage = "Headset connected!";
                     }
                     break;
-//                case Intent.ACTION_POWER_DISCONNECTED:
-//                    toastMessage = "Power disconnected!";
-//                    break;
-//                //BELOW CASE IS FOR LOCAL BROADCAST
-//                case ACTION_CUSTOM_BROADCAST:
-//                    toastMessage = "Custom Broadcast Received";
-//                    break;
             }
             Toast.makeText(context, toastMessage,Toast.LENGTH_SHORT).show();
         }
